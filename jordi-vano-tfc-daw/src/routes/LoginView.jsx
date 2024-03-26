@@ -3,10 +3,13 @@ import {
     onAuthStateChanged, 
     signInWithPopup 
 } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth, userExist } from "../firebase/firebase";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginView(){
+
+    const navigate = useNavigate();
 
     const [currentUser, setCurrentUser] = useState(null);
     /*
@@ -22,18 +25,24 @@ export default function LoginView(){
 
     useEffect(() => {
         setCurrentState(1);
-        onAuthStateChanged(auth, handleUserStateChanged);
-    }, []);
-
-    function handleUserStateChanged(user){
-        if  (user) {
-            setCurrentState(3);
-            console.log("Logueado como: ", user.email);
-        } else{
-            setCurrentState(4);
-            console.log("No hay nadie autenticado...");
-        }
-    }
+        onAuthStateChanged(auth, async (user)=>{
+            if  (user) {
+                const isRegistered = await userExist(user.uid);
+                if(isRegistered){
+                    //TODO: redirigir a Dashboard
+                    navigate("/dashboard");
+                    setCurrentState(2);
+                }else{
+                    //TODO: redirigir a elegir usuario
+                    navigate("/choose-username")
+                setCurrentState(3);
+            }
+            } else{
+                setCurrentState(4);
+                console.log("No hay nadie autenticado...");
+            }
+        });
+    }, [navigate]);
 
     async function handleOnClick(){
         const googleProvider = new GoogleAuthProvider();
@@ -49,7 +58,9 @@ export default function LoginView(){
         }
     }
 
-    
+    if(state === 2){
+        return <div>Estás autenticado y registrado</div>;
+    }
     if(state === 3){
         return <div>Estás autenticado pero no registrado</div>;
     }
