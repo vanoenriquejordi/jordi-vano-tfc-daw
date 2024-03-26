@@ -3,17 +3,18 @@ import { initializeApp } from "firebase/app";
 import  { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes, getDownloadURL, getBytes, } from "firebase/storage";
 import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, deleteDoc, } from "firebase/firestore";
+import { async } from "@firebase/util";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDgoEIDWAoNRGhhLea1PhqAj5XxB_i7cLk",
-  authDomain: "jordi-vano-tfc-daw.firebaseapp.com",
-  projectId: "jordi-vano-tfc-daw",
-  storageBucket: "jordi-vano-tfc-daw.appspot.com",
-  messagingSenderId: "530210810882",
-  appId: "1:530210810882:web:f9cf2f534f984fe50b8b1b"
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
 };
 
 // Initialize Firebase
@@ -31,18 +32,14 @@ export async function userExist(uid){
 
 export async function existsUsername(username){
   const users = [];
-  try {
-    const docsRef = collection(db, "users");
-    const consulta = query(docsRef, where("username", "==", username));
-  
-    const querySnapshot = await getDocs(consulta);
-  
-    querySnapshot.forEach(doc =>{
-      users.push(doc.data())
-    });
-  } catch (error) {
-    
-  }
+  const docsRef = collection(db, "users");
+  const consulta = query(docsRef, where("username", "==", username));
+
+  const querySnapshot = await getDocs(consulta);
+
+  querySnapshot.forEach((doc) =>{
+    users.push(doc.data())
+  });
 
   return users.length > 0 ? users[0].uid : null;
 }
@@ -131,5 +128,25 @@ export async function logout() {
     await auth.signOut();
   } catch (error) {
     
+  }
+}
+
+export async function setUserProfilePhoto(uid, file){
+  try {
+    const imageRef = ref(storage, `images/${uid}`);
+    const resUpload = await uploadBytes(imageRef, file);
+    return resUpload;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getProfilePhotoUrl(profilePicture){
+  try {
+    const imageRef = ref(storage, profilePicture);
+
+    const url = await getDownloadURL(imageRef);
+  } catch (error) {
+    console.error(error);
   }
 }
