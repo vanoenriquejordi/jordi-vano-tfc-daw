@@ -123,14 +123,6 @@ export async function updateLink(docId, link) {
   }
 }
 
-export async function logout() {
-  try {
-    await auth.signOut();
-  } catch (error) {
-    
-  }
-}
-
 export async function setUserProfilePhoto(uid, file){
   try {
     const imageRef = ref(storage, `images/${uid}`);
@@ -146,6 +138,25 @@ export async function getProfilePhotoUrl(profilePicture){
     const imageRef = ref(storage, profilePicture);
 
     const url = await getDownloadURL(imageRef);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getUserPublicProfileInfo(uid){
+  const profileInfo = await getUserInfo(uid);
+  const linksInfo = await getLinks(uid);
+
+  return {
+    profileInfo: profileInfo,
+    linksInfo: linksInfo,
+  };
+}
+
+
+export async function logout() {
+  try {
+    await auth.signOut();
   } catch (error) {
     console.error(error);
   }
