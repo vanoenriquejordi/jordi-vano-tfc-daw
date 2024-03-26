@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import  { getAuth } from "firebase/auth";
-import { getStorage, reff, uploadBytes, getDownloadURL, getBytes, } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL, getBytes, } from "firebase/storage";
 import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, deleteDoc, } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,14 +31,18 @@ export async function userExist(uid){
 
 export async function existsUsername(username){
   const users = [];
-  const docsRef = collection(db, "users");
-  const consulta = query(docsRef, where("username", "==", username));
-
-  const querySnapshot = await getDocs(consulta);
-
-  querySnapshot.forEach(doc =>{
-    users.push(doc.data())
-  });
+  try {
+    const docsRef = collection(db, "users");
+    const consulta = query(docsRef, where("username", "==", username));
+  
+    const querySnapshot = await getDocs(consulta);
+  
+    querySnapshot.forEach(doc =>{
+      users.push(doc.data())
+    });
+  } catch (error) {
+    
+  }
 
   return users.length > 0 ? users[0].uid : null;
 }
@@ -95,6 +99,36 @@ export async function getLinks(uid){
       links.push(link);
     });
     return links;
+  } catch (error) {
+    
+  }
+}
+
+export async function deleteLink(docId) {
+  try {
+    const docRef = doc(db, "links", docId);
+    const res = await deleteDoc(docRef);
+
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function updateLink(docId, link) {
+  try {
+    const docRef = doc(db, "links", docId);
+    const res = await setDoc(docRef, link);
+
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function logout() {
+  try {
+    await auth.signOut();
   } catch (error) {
     
   }
