@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { existsUsername, getProfilePhotoUrl, getUserPublicProfileInfo } from "../firebase/firebase";
 import { PublicLink } from "../components/publicLink";
+import style from "./publicProfileView.module.css";
+import styleLinks from "../components/publicLinkView.module.css";
 
 export default function PublicProfileView(){
 
@@ -39,13 +41,14 @@ export default function PublicProfileView(){
     }
 
     return (
-        <div>
-            <div>
+        <div className={style.profileContainer}>
+            <div className={style.profilePicture}>
                 <img src={url} alt={""}/>
             </div>
             <h2>{profile?.profileInfo.username}</h2>
             <h3>{profile?.profileInfo.displayName}</h3>
-            <div>{profile ?. linksInfo.map((link) => (
+            <div className={styleLinks.publicLinksContainer}>
+                {profile ?. linksInfo.map((link) => (
                 <PublicLink key={link.docId} url={link.url} title={link.title}></PublicLink>
             ))}</div>
         </div>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { deleteLink } from "../firebase/firebase";
+import style from "./link.module.css";
 
 export default function Link({
   docId,
@@ -59,9 +60,9 @@ export default function Link({
   }
 
   return (
-    <div key={docId}>
-      <div>
-        <div>
+    <div className={style.link}>
+      <div className={style.linkInfo}>
+        <div className={style.linkTitle}>
           {editTitle ? (
             <>
               <input
@@ -73,13 +74,13 @@ export default function Link({
             </>
           ) : (
             <>
-              <button onClick={handleEditTitle}>Editar
+              <button className={style.btnEdit} onClick={handleEditTitle}><span className="material-icons">edit</span>
               </button>
               {currentTitle}
             </>
           )}
         </div>
-        <div>
+        <div className={style.linkUrl}>
           {editUrl ? (
             <>
               <input
@@ -91,15 +92,15 @@ export default function Link({
             </>
           ) : (
             <>
-              <button onClick={handleEditUrl}>Editar
+              <button className={style.btnEdit} onClick={handleEditUrl}><span className="material-icons">edit</span>
               </button>
               {currentUrl}
             </>
           )}
         </div>
       </div>
-      <div>
-        <button onClick={handleDeleteLink}>Eliminar
+      <div className={style.linkActions}>
+        <button className={style.btnDelete} onClick={handleDeleteLink}><span className="material-icons">delete</span>
         </button>
       </div>
     </div>

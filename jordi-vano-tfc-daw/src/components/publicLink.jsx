@@ -1,7 +1,9 @@
+import style from "./publicLinkView.module.css"
+
 export function PublicLink({url, title}){
     return(
-        <div>
-            <a target={"_blank"} href={url}>{title}</a>
-        </div>
+            <a target={"_blank"} href={url} className={style.publicLinkContainer}>
+                <div>{title}</div>
+            </a>
     )
 }

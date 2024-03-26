@@ -3,6 +3,7 @@ import AuthProvider from "../components/authProvider";
 import DashboardWrapper from "../components/dashboardWrapper";
 import { useState, useRef } from "react";
 import { getProfilePhotoUrl, setUserProfilePhoto, updateUser } from "../firebase/firebase";
+import style from "./editProfileView.module.css"
 
 export default function EditProfileView(){
     const navigate = useNavigate();
@@ -69,11 +70,15 @@ export default function EditProfileView(){
         <DashboardWrapper>
             <div>
                 <h2>Editar información del perfil</h2>
-                <div>
-                    <img onClick={handleOpenFilePicker} src={profileUrl} alt="" width={100} />
-                    <input ref={fileRef} type="file" style={{display:"none"}} onChange={handleChangeFile} />
+                <div className={style.profilePictureContainer}>
+                    <div>
+                        <img src={profileUrl} alt="" width={100} />
+                    </div>
+                    <div>
+                        <button className={"btn"} onClick={handleOpenFilePicker} >Elige una imagen de perfil</button>
+                        <input className={style.fileInput} ref={fileRef} type="file" style={{display:"none"}} onChange={handleChangeFile} />
+                    </div>
                 </div>
-                <div><button>Elige una imagen de perfil</button></div>
             </div>
         </DashboardWrapper>
     );

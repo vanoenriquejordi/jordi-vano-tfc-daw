@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: aliceblue;
 }
 
 code {
@@ -48,16 +49,24 @@ code {
   border: none;
   background-color: rgb(13,110,184);
   color: white;
-  padding: 15px 15px;
+  margin: 10px 0;
+  padding: 15px 20px;
   border-radius: 3px;
+  min-width: 200px;
 }
 
-.main-container input[type="text"]{
+input[type="text"]{
   border: solid 1px #ccc;
   border-radius: 3px;
   padding: 8px 10px;
 }
 
-.main-container label{
+label{
   padding-top: 5px;
+}
+
+a {
+  color: rgb(13,110,184);
+  font-weight: bold;
+  text-decoration: none;
 }

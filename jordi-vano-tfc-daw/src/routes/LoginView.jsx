@@ -7,6 +7,7 @@ import { auth, userExist } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthProvider from "../components/authProvider";
+import style from "./loginView.module.css";
 
 export default function LoginView(){
 
@@ -78,7 +79,11 @@ export default function LoginView(){
     //     return <div>Estás autenticado pero no registrado</div>;
     // }
     if(state === 4){
-        return(<div><button onClick={handleOnClick}>Inicia sesión con Google</button></div>);
+        return(
+        <div className={style.loginView}>
+            <h1>NFC-LINKS-JVE</h1>          
+            <button className={style.provider} onClick={handleOnClick}>Inicia sesión con Google</button>
+        </div>);
     }
         return (
             <AuthProvider onUserLoggedIn={handleUserLoggedIn} onUserNotRegistered={handleUserNotRegistered} onUserNotLoggedIn={handleUserNotLoggedIn}>
