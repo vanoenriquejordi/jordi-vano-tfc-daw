@@ -8,12 +8,12 @@ import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, s
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_APIKEY,
-  authDomain: process.env.REACT_APP_AUTHDOMAIN,
-  projectId: process.env.REACT_APP_PROJECTID,
-  storageBucket: process.env.REACT_APP_STORAGEBUSCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
-  appId: process.env.REACT_APP_APPID,
+  apiKey: "AIzaSyDgoEIDWAoNRGhhLea1PhqAj5XxB_i7cLk",
+  authDomain: "jordi-vano-tfc-daw.firebaseapp.com",
+  projectId: "jordi-vano-tfc-daw",
+  storageBucket: "jordi-vano-tfc-daw.appspot.com",
+  messagingSenderId: "530210810882",
+  appId: "1:530210810882:web:f9cf2f534f984fe50b8b1b"
 };
 
 // Initialize Firebase
