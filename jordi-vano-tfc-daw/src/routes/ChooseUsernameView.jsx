@@ -26,7 +26,7 @@ export default function ChooseUsernameView(){
     }
 
     async function handleContinue(){
-        if(username!== ""){
+        if(username !== ""){
             const exists = await existsUsername(username);
             if(exists) {
                 setState(5);

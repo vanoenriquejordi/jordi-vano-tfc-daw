@@ -72,3 +72,30 @@ export async function getUserInfo(uid){
     
   }
 }
+
+export async function insertNewLink(link){
+  try {
+    const docRef = collection(db, "links");
+    const res = await addDoc(docRef, link)
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getLinks(uid){
+  const links = [];
+  try {
+    const collectionRef = collection(db, "links");
+    const consulta = query(collectionRef, where("uid", "==", uid));
+    const querySnapshot = await getDocs(consulta);
+
+    querySnapshot.forEach((doc)=>{
+      const link =  { ...doc.data()};
+      link.dockId = doc.id;
+      links.push(link);
+    });
+    return links;
+  } catch (error) {
+    
+  }
+}
