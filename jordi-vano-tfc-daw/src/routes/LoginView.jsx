@@ -6,12 +6,13 @@ import {
 import { auth, userExist } from "../firebase/firebase";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AuthProvider from "../components/authProvider";
 
 export default function LoginView(){
 
     const navigate = useNavigate();
 
-    const [currentUser, setCurrentUser] = useState(null);
+    // const [currentUser, setCurrentUser] = useState(null);
     /*
     State:
     0-> Inicializado
@@ -23,26 +24,26 @@ export default function LoginView(){
     const [state, setCurrentState] = useState(0);
 
 
-    useEffect(() => {
-        setCurrentState(1);
-        onAuthStateChanged(auth, async (user)=>{
-            if  (user) {
-                const isRegistered = await userExist(user.uid);
-                if(isRegistered){
-                    //TODO: redirigir a Dashboard
-                    navigate("/dashboard");
-                    setCurrentState(2);
-                }else{
-                    //TODO: redirigir a elegir usuario
-                    navigate("/choose-username")
-                setCurrentState(3);
-            }
-            } else{
-                setCurrentState(4);
-                console.log("No hay nadie autenticado...");
-            }
-        });
-    }, [navigate]);
+    // useEffect(() => {
+    //     setCurrentState(1);
+    //     onAuthStateChanged(auth, async (user)=>{
+    //         if  (user) {
+    //             const isRegistered = await userExist(user.uid);
+    //             if(isRegistered){
+    //                 //TODO: redirigir a Dashboard
+    //                 navigate("/dashboard");
+    //                 setCurrentState(2);
+    //             }else{
+    //                 //TODO: redirigir a elegir usuario
+    //                 navigate("/choose-username")
+    //             setCurrentState(3);
+    //         }
+    //         } else{
+    //             setCurrentState(4);
+    //             console.log("No hay nadie autenticado...");
+    //         }
+    //     });
+    // }, [navigate]);
 
     async function handleOnClick(){
         const googleProvider = new GoogleAuthProvider();
@@ -58,16 +59,29 @@ export default function LoginView(){
         }
     }
 
-    if(state === 2){
-        return <div>Estás autenticado y registrado</div>;
+    function handleUserLoggedIn(user){
+        navigate('/dashboard');
     }
-    if(state === 3){
-        return <div>Estás autenticado pero no registrado</div>;
+    function handleUserNotLoggedIn(user){
+        setCurrentState(4);
     }
+    function handleUserNotRegistered(){
+        navigate('/choose-username');
+    }
+
+    // if(state === 2){
+    //     return <div>Estás autenticado y registrado</div>;
+    // }
+    // if(state === 3){
+    //     return <div>Estás autenticado pero no registrado</div>;
+    // }
     if(state === 4){
-        return<div><button onClick={handleOnClick}>Inicia sesión con Google</button></div>;
+        return(<div><button onClick={handleOnClick}>Inicia sesión con Google</button></div>);
     }
         return (
-            <div>Cargando...</div>
+            <AuthProvider onUserLoggedIn={handleUserLoggedIn} onUserNotRegistered={handleUserNotRegistered} onUserNotLoggedIn={handleUserNotLoggedIn}>
+                <div>Cargando...</div>
+            </AuthProvider>
+            
         )
 }
