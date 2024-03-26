@@ -23,8 +23,52 @@ const db = getFirestore(app);
 const storage =  getStorage(app);
 
 export async function userExist(uid){
-  const docRef = doc(db, 'users', uid);
+  const docRef = doc(db, "users", uid);
   const res = await getDoc(docRef);
   console.log(res);
    return res.exists();
+}
+
+export async function existsUsername(username){
+  const users = [];
+  const docsRef = collection(db, "users");
+  const consulta = query(docsRef, where("username", "==", username));
+
+  const querySnapshot = await getDocs(consulta);
+
+  querySnapshot.forEach(doc =>{
+    users.push(doc.data())
+  });
+
+  return users.length > 0 ? users[0].uid : null;
+}
+
+export async function registerNewUser(user){
+  try {
+    const collectionRef = collection(db, "users");
+    const docRef = doc(collectionRef, user.uid);
+    await setDoc(docRef, user);
+  } catch(error){
+    console.log("Error al registrar el usuario");
+  }
+}
+
+export async function updateUser(user){
+  try{
+    const collectionRef = collection(db, "users");
+    const docRef = doc(collection, user.uid);
+    await setDoc(docRef, user);
+  }catch(error){
+
+  }
+}
+
+export async function getUserInfo(uid){
+  try {
+    const docRef = doc(db,"users", uid);
+    const document = await getDoc(docRef);
+    return document.data();
+  } catch (error) {
+    
+  }
 }

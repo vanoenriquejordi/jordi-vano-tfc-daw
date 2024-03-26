@@ -20,6 +20,8 @@ export default function LoginView(){
     2-> Loading completo
     3-> Login pero sin registro
     4-> No hay nadie logueado
+    5-> Ya existe username
+    6-> nuevo username, click para continuar
     */
     const [state, setCurrentState] = useState(0);
 
@@ -83,5 +85,5 @@ export default function LoginView(){
                 <div>Cargando...</div>
             </AuthProvider>
             
-        )
+        );
 }
