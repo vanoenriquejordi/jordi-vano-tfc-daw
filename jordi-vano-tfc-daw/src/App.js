@@ -9,11 +9,7 @@ function App() {
         <p>
           {process.env.REACT_APP_SALUDO}
         </p>
-        <a
-          className="App-link"
-          href="/login"
-          rel="noopener noreferrer"
-        >
+        <a className="App-link" href="/login">
           Acceder
         </a>
       </header>
