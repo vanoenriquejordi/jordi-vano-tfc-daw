@@ -12,7 +12,6 @@ function App() {
         <a
           className="App-link"
           href="/login"
-          target="_blank"
           rel="noopener noreferrer"
         >
           Acceder
