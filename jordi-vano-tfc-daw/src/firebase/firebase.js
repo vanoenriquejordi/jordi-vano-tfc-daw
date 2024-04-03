@@ -18,16 +18,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-const db = getFirestore(app);
-const storage =  getStorage(app);
+export const db = getFirestore(app);
+export const storage =  getStorage(app);
 
 export async function userExist(uid){
   const docRef = doc(db, "users", uid);
   const res = await getDoc(docRef);
   console.log(res);
-   return res.exists();
+  return res.exists();
 }
 
 export async function existsUsername(username){
@@ -38,7 +38,8 @@ export async function existsUsername(username){
   const querySnapshot = await getDocs(consulta);
 
   querySnapshot.forEach((doc) =>{
-    users.push(doc.data())
+    console.log(doc.id, " => ", doc.data());
+    users.push(doc.data());
   });
 
   return users.length > 0 ? users[0].uid : null;
@@ -55,9 +56,10 @@ export async function registerNewUser(user){
 }
 
 export async function updateUser(user){
+  console.log(user);
   try{
     const collectionRef = collection(db, "users");
-    const docRef = doc(collection, user.uid);
+    const docRef = doc(collectionRef, user.uid);
     await setDoc(docRef, user);
   }catch(error){
 
@@ -77,7 +79,8 @@ export async function getUserInfo(uid){
 export async function insertNewLink(link){
   try {
     const docRef = collection(db, "links");
-    const res = await addDoc(docRef, link)
+    const res = await addDoc(docRef, link);
+    return res;
   } catch (error) {
     console.error(error);
   }
@@ -92,12 +95,57 @@ export async function getLinks(uid){
 
     querySnapshot.forEach((doc)=>{
       const link =  { ...doc.data()};
-      link.dockId = doc.id;
+      link.docId = doc.id;
       links.push(link);
     });
     return links;
   } catch (error) {
     
+  }
+}
+
+export async function setUserProfilePhoto(uid, file){
+  try {
+    const storage = getStorage();
+    const imageRef = ref(storage, `images/${uid}`);
+    const resUpload = await uploadBytes(imageRef, file);
+    console.log("imagen subida", resUpload);
+    return resUpload;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getProfilePhotoUrl(profilePicture){
+  try {
+    const imageRef = ref(storage, profilePicture);
+    console.log(profilePicture);
+
+    const url = await getDownloadURL(imageRef);
+    console.log({url});
+    return url;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getUserPublicProfileInfo(uid){
+  const profileInfo = await getUserInfo(uid);
+  const linksInfo = await getLinks(uid);
+
+  return {
+    profileInfo: profileInfo,
+    linksInfo: linksInfo,
+  };
+}
+
+
+export async function logout() {
+  try {
+    await auth.signOut();
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -118,45 +166,6 @@ export async function updateLink(docId, link) {
     const res = await setDoc(docRef, link);
 
     return res;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function setUserProfilePhoto(uid, file){
-  try {
-    const imageRef = ref(storage, `images/${uid}`);
-    const resUpload = await uploadBytes(imageRef, file);
-    return resUpload;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function getProfilePhotoUrl(profilePicture){
-  try {
-    const imageRef = ref(storage, profilePicture);
-
-    const url = await getDownloadURL(imageRef);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function getUserPublicProfileInfo(uid){
-  const profileInfo = await getUserInfo(uid);
-  const linksInfo = await getLinks(uid);
-
-  return {
-    profileInfo: profileInfo,
-    linksInfo: linksInfo,
-  };
-}
-
-
-export async function logout() {
-  try {
-    await auth.signOut();
   } catch (error) {
     console.error(error);
   }

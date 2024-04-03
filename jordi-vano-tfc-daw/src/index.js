@@ -1,6 +1,6 @@
 import React from 'react';
-//import ReactDOM from 'react-dom/client';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
+//import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -12,7 +12,8 @@ import SignOutView from './routes/SignOutView';
 import PublicProfileView from './routes/PublicProfileView';
 import ChooseUsernameView from './routes/ChooseUsernameView';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
@@ -24,7 +25,6 @@ ReactDOM.render(
       <Route path="choose-username" element={<ChooseUsernameView />} />
     </Routes>
   </BrowserRouter>,
-  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

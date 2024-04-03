@@ -55,8 +55,14 @@ export default function Link({
     setUrl(e.target.value);
   }
 
-  async function handleDeleteLink(docId){
-    await deleteLink(docId);
+  async function handleDeleteLink() {
+    try {
+      await deleteLink(docId);
+      // Lógica adicional después de eliminar el enlace si es necesario
+      onDelete();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

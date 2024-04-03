@@ -100,9 +100,9 @@ export default function DashboardView(){
                 <div className={styleLinks.linksContainer}>
                     {links.map((link) => (
                         <Link 
-                        key={link.docId} 
+                        key={link.docId}
                         docId={link.docId}
-                        url={link.url} 
+                        url={link.url}
                         title={link.title} 
                         onDelete={handleDeleteLink} 
                         onUpdate={handleUpdateLink}
