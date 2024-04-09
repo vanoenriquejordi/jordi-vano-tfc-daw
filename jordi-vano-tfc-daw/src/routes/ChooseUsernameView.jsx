@@ -46,10 +46,10 @@ export default function ChooseUsernameView(){
             <h1>Bienvenid@ {currentUser.displayName}</h1>
             <p>Para terminar el proceso, elige un nombre de usuario</p>
             {state === 5?<p>El nombre de usuario ya existe, escoge otro</p>:""}
-            <div>
+            <div  className={style.chooseUsernameContainerMargin}>
                 <input className={"input"}type="text" onChange={handleInputUsername} />
             </div>
-            <div>
+            <div className={style.chooseUsernameContainerMargin}>
                 <button className={"btn"} onClick={handleContinue}>Continuar</button>
             </div>
         </div>

@@ -5,15 +5,15 @@
 }
 
 .publicLinkContainer{
-    color: black;
+    color: white;
     text-decoration: none;
     display: block;
     padding: 20px;
-    background-color: orange;
+    background-color: rgb(13,110,184);
     border-radius: 10px;
     font-weight: bold;
 }
 
 .publicLinkContainer:hover{
-    background-color: orangered;
+    background-color: blue;
 }

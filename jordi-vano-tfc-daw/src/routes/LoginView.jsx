@@ -81,7 +81,7 @@ export default function LoginView(){
     if(state === 4){
         return(
         <div className={style.loginView}>
-            <h1>NFC-LINKS-JVE</h1>          
+            <h1>VAEN REDES</h1>          
             <button className={style.provider} onClick={handleOnClick}>Inicia sesión con Google</button>
         </div>);
     }

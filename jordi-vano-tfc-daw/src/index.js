@@ -19,7 +19,7 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="login" element={<LoginView />} />
       <Route path="dashboard" element={<DashboardView />} />
-      <Route path="dashboard/profile" element={<EditProfileView />} />
+      <Route path="profile" element={<EditProfileView />} />
       <Route path="signout" element={<SignOutView />} />
       <Route path="link/:username" element={<PublicProfileView />} />
       <Route path="choose-username" element={<ChooseUsernameView />} />

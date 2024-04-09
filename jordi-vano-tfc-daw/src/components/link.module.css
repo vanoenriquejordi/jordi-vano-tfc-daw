@@ -29,11 +29,12 @@
 .linkTitle{
     font-weight: bolder;
     padding: 5px 0;
+    color: black;
 }
 
 .linkUrl{
     padding: 5px 0;
-    color: #555;
+    color: grey;
     text-transform: lowercase;
 }
 
@@ -43,7 +44,7 @@
     margin: 0;
     background-color: transparent;
     height: 16px;
-    color: #ccc;
+    color: black;
     cursor: pointer;
 }
 
@@ -51,7 +52,7 @@
     border: none;
     margin: 0;
     background-color: transparent;
-    color: #222;
+    color: black;
     cursor: pointer;
     min-height: 100%;
     padding: 0 20px;
@@ -68,5 +69,5 @@
 }
 
 .btnEdit:hover{
-    color: #222;
+    color: grey;
 }
