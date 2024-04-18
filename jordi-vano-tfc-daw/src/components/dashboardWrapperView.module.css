@@ -1,22 +1,35 @@
 .nav {
     background-color: black;
     display: flex;
+    justify-content: space-between; /* Centra los elementos en el header */
     align-items: center;
     padding: 0 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.nav a{
+.nav a {
     color: white;
     text-decoration: none;
-    padding: 25px 25px;
-    border-bottom: solid 2px transparent;
+    padding: 10px; /* Reducido el padding para dispositivos más pequeños */
 }
 
-.nav a:hover{
+.nav a:hover {
     border-bottom: solid 2px #222;
 }
 
-.logo{
-    width: 200px;
+.logoHeader {
+    height: auto; /* Para que la altura se ajuste automáticamente */
+    max-height: 50px; /* Altura máxima para dispositivos más pequeños */
+}
+
+/* Media queries para hacer el diseño responsivo */
+
+@media only screen and (max-width: 768px) {
+    .nav {
+        flex-direction: row; /* Cambia la dirección del flexbox para dispositivos más pequeños */
+        align-items: center; /* Centra los elementos verticalmente */
+    }
+    .nav a {
+        padding: 10px; /* Reduce aún más el padding para dispositivos móviles */
+    }
 }

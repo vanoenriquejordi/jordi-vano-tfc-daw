@@ -56,6 +56,7 @@ export default function DashboardView(){
     function handleOnSubmit(e){
         e.preventDefault();
         addLink();
+        e.target.reset();
     }
 
     function handleOnChange(e){

@@ -10,7 +10,7 @@ function App() {
           <ul className="nav-list">
             <li className="nav-link nav-link-active">
               <a className="App-link" href="/login">
-                Acceder
+                ACCEDER
               </a>
             </li>
           </ul>
@@ -45,9 +45,9 @@ function App() {
 
             <div className="service-box service-box-active">
               <img src="./img/chapa.svg" style={{ width: '40px' }} alt="" />
-              <h3>Chapas</h3>
+              <h3>Stickers</h3>
               <p>
-                Prueba nuestras chapas para pegarlas donde quieras y que la gente te descubra
+                Prueba nuestros stickers para pegarlos donde quieras y que la gente te descubra
               </p>
             </div>
 
@@ -76,24 +76,6 @@ function App() {
                 <h2>4+</h2>
                 <p>Asignaturas aprobadas</p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-cta">
-        <div className="container">
-          <div className="cta">
-            <div className="cta-textbox">
-              <h2>
-                ¿Quieres pedir un presupuesto?
-              </h2>
-              <p>
-                Contacta con nosotros
-              </p>
-            </div>
-            <div className="cta-btnbox">
-              <button className="btn btn-cta">Contacta</button>
             </div>
           </div>
         </div>

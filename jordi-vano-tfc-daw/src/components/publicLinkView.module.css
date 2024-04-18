@@ -1,7 +1,13 @@
+body{
+    background-color: #333;
+    color: white;
+}
+
 .publicLinksContainer{
     display: flex;
     flex-direction: column;
     gap: 15px;
+    align-items: center;
 }
 
 .publicLinkContainer{
@@ -12,6 +18,7 @@
     background-color: rgb(13,110,184);
     border-radius: 10px;
     font-weight: bold;
+    width: 70%;
 }
 
 .publicLinkContainer:hover{
